@@ -3,6 +3,7 @@ import streamlit as st
 import pickle
 import bz2
 import numpy as np
+import sklearn
 st.set_page_config(page_title="Predictive Price App", layout="wide")
 
 with open('model.pkl', 'rb') as file:
