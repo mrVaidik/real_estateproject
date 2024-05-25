@@ -9,8 +9,19 @@ with open('model.pkl', 'rb') as file:
     df = pickle.load(file)
 
 
-with bz2.BZ2File('pipeline.pkl.bz2', 'rb') as file:
-    pipeline = pickle.load(file)
+import bz2
+import pickle
+import sys
+
+file_path = 'pipeline.pkl.bz2'
+
+try:
+    with bz2.BZ2File(file_path, 'rb') as file:
+        pipeline = pickle.load(file)
+except ModuleNotFoundError as e:
+    print(f"ModuleNotFoundError: {e}", file=sys.stderr)
+    raise
+
 
 
 
