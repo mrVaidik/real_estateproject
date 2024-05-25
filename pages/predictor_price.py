@@ -26,7 +26,7 @@ except ModuleNotFoundError as e:
 
 
 
-with st.form("my_form"):
+
     st.header('Enter your inputs ')
 
     property_type = st.selectbox('Property Type', ['flat', 'house'])
