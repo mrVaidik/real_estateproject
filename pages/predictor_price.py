@@ -1,14 +1,17 @@
 import pandas as pd
 import streamlit as st
 import pickle
+import bz2
 import numpy as np
 st.set_page_config(page_title="Predictive Price App", layout="wide")
 
 with open('model.pkl', 'rb') as file:
     df = pickle.load(file)
 
-with open('pipeline.pkl', 'rb') as file:
+
+with bz2.BZ2File('pipeline.pkl.bz2', 'rb') as file:
     pipeline = pickle.load(file)
+
 
 
 
