@@ -24,20 +24,24 @@ pipeline = load_pipeline()
 st.header('Enter your inputs')
 
 property_type = st.selectbox('Property Type', ['flat', 'house'])
-sector = st.selectbox('sector', sorted(df['sector'].unique().tolist()))
-bedroom = float(st.selectbox('bedRoom', sorted(df['bedRoom'].unique().tolist())))
-bathroom = float(st.selectbox('bathroom', sorted(df['bathroom'].unique().tolist())))
-balcony = st.selectbox('balcony', sorted(df['balcony'].unique().tolist()))
-property_age = st.selectbox('property_age', sorted(df['agePossession'].unique().tolist()))
-built_up_area = float(st.number_input('Built_up_area'))
-servent_room = float(st.selectbox('servent_room', ['0.0':'yes', '1.0':'no']))
-store_room = float(st.selectbox('store_room', ['0.0', '1.0']))
-furnishing = st.selectbox('furnishing', sorted(df['furnishing_type'].unique().tolist()))
-luxury_category = st.selectbox('luxury_category', sorted(df['luxury_category'].unique().tolist()))
-floor_category = st.selectbox('floor_category', sorted(df['floor_category'].unique().tolist()))
+sector = st.selectbox('Sector', sorted(df['sector'].unique().tolist()))
+bedroom = float(st.selectbox('Bedroom', sorted(df['bedRoom'].unique().tolist())))
+bathroom = float(st.selectbox('Bathroom', sorted(df['bathroom'].unique().tolist())))
+balcony = st.selectbox('Balcony', sorted(df['balcony'].unique().tolist()))
+property_age = st.selectbox('Property Age', sorted(df['agePossession'].unique().tolist()))
+built_up_area = float(st.number_input('Built-up Area'))
+servent_room = st.selectbox('Servant Room', ['no', 'yes'])
+store_room = st.selectbox('Store Room', ['no', 'yes'])
+furnishing = st.selectbox('Furnishing', sorted(df['furnishing_type'].unique().tolist()))
+luxury_category = st.selectbox('Luxury Category', sorted(df['luxury_category'].unique().tolist()))
+floor_category = st.selectbox('Floor Category', sorted(df['floor_category'].unique().tolist()))
 
 if st.button('Predict'):
-    data = [[property_type, sector, bedroom, bathroom, balcony, property_age, built_up_area, servent_room, store_room, furnishing, luxury_category, floor_category]]
+    # Convert 'yes'/'no' to 1.0/0.0 for the model
+    servent_room_value = 1.0 if servent_room == 'yes' else 0.0
+    store_room_value = 1.0 if store_room == 'yes' else 0.0
+
+    data = [[property_type, sector, bedroom, bathroom, balcony, property_age, built_up_area, servent_room_value, store_room_value, furnishing, luxury_category, floor_category]]
     columns = ['property_type', 'sector', 'bedRoom', 'bathroom', 'balcony', 'agePossession', 'built_up_area', 'servant room', 'store room', 'furnishing_type', 'luxury_category', 'floor_category']
     one_df = pd.DataFrame(data, columns=columns)
     st.dataframe(one_df)
@@ -45,4 +49,5 @@ if st.button('Predict'):
     base_price = np.expm1(pipeline.predict(one_df))[0]
     low = base_price - 0.21
     high = base_price + 0.21
-    st.text("The Price of the {} is between {} CR and {} CR".format(property_type, round(low, 2), round(high, 2)))
+    st.text(f"The Price of the {property_type} is between {round(low, 2)} CR and {round(high, 2)} CR")
+
