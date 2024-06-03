@@ -44,7 +44,7 @@ if st.button('Predict'):
     data = [[property_type, sector, bedroom, bathroom, balcony, property_age, built_up_area, servent_room_value, store_room_value, furnishing, luxury_category, floor_category]]
     columns = ['property_type', 'sector', 'bedRoom', 'bathroom', 'balcony', 'agePossession', 'built_up_area', 'servant room', 'store room', 'furnishing_type', 'luxury_category', 'floor_category']
     one_df = pd.DataFrame(data, columns=columns)
-    st.dataframe(one_df)
+    
 
     base_price = np.expm1(pipeline.predict(one_df))[0]
     low = base_price - 0.21
