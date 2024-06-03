@@ -61,7 +61,7 @@ if st.button('Search'):
         appartment
     )
 
-
+st.divider()
 
 st .title("Recommend Appartments")
 selected_appartment = st.selectbox('select an appartment' , sorted(location_df.index.to_list()))
