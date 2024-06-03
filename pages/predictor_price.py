@@ -49,5 +49,5 @@ if st.button('Predict'):
     base_price = np.expm1(pipeline.predict(one_df))[0]
     low = base_price - 0.21
     high = base_price + 0.21
-    st.text(f"The Price of the {property_type} is between {round(low, 2)} CR and {round(high, 2)} CR")
+    st.header(f"The Price of the {property_type} is between {round(low, 2)} CR and {round(high, 2)} CR")
 
