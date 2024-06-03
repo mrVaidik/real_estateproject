@@ -40,7 +40,7 @@ def recommend_properties_with_scores(property_name, top_n=247):
 # Test the recommender function using a property name
 recommend_properties_with_scores('Ireo Victory Valley')
 
-
+st.title("Nearby public place finder")
 selected_location = st.selectbox('Location' , sorted(location_df.columns.to_list()))
 
 radius = st.number_input('Radius in Kms')
